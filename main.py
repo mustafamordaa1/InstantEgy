@@ -2,7 +2,7 @@ import telebot
 import requests
 from telebot import types
 from bs4 import BeautifulSoup 
-import SQLite3 as sqlite3
+import sqlite3
 
 
 API_KEY = "1886396394:AAFp1NJDpxpFbiPOgfhWKVtLP_DEVue-HDc"
