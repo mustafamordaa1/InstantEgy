@@ -28,7 +28,7 @@ def info(message):
 		bot.send_message(message.chat.id,"Your input is wrong")
 		return p
 		
-	msg = bot.send_message(message.chat.id,text = f"You choosed { serie } season { season } episode { ep } \n PLEASE WAIT ..." , parse_mode=ParseMode.HTML)
+	msg = bot.send_message(message.chat.id,text = f"You choosed { serie } season { season } episode { ep } \n PLEASE WAIT ...")# , parse_mode=ParseMode.HTML)
 	c.execute("SELECT * FROM series WHERE name=? AND id=?",(serie,chat_id))
 	check = c.fetchone()
 	if check == None :
