@@ -62,29 +62,6 @@ def info(message):
 #	bot.send_message(chat_id,link )
 	conn.commit()
 	conn.close()
-
-@bot.message_handler(commands=['my'])
-def my(message):
-	chat_id = message.chat.id
-	conn = sqlite3.connect('shows.db')
-	c = conn.cursor()
-	s1 = message.text
-	info = s1.split(" ")
-	serie = info[1]
-	c.execute("SELECT * FROM series WHERE name=? AND id = ?",(serie,chat_id))
-	check = c.fetchone()
-	markup = types.ReplyKeyboardMarkup(row_width=2)
-	if check == None :
-		itembtn1 = types.KeyboardButton('/my_series')
-		markup.add(itembtn1)
-		bot.send_message(chat_id, "You didn't wathced that show", reply_markup=markup)
-	else :
-		itembtn2 = types.KeyboardButton(f'/watch { serie } { check[1] } { check[2]+1 }')
-		markup.add(itembtn2)
-		bot.send_message(chat_id, "watch the next episode", reply_markup=markup)
-	print(chat_id)
-	conn.commit()
-	conn.close()	
 		
 @bot.message_handler(commands=['my_series'])
 def my_series(message):
