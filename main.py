@@ -43,7 +43,7 @@ def info(message):
 		markup = types.ReplyKeyboardMarkup(row_width=1)
 		itembtn = types.KeyboardButton('/help')
 		markup.add(itembtn)
-		bot.send_message(chat_id,f"There is no result ", reply_markup=markup)
+		bot.send_message(chat_id,f"There is no result { soup }", reply_markup=markup)
 		return 'INPUT ERROR'
 		
 	link="https://ello.egybest.bid"+ div['src']
