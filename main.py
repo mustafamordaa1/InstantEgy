@@ -4,7 +4,7 @@ from telebot import types
 from bs4 import BeautifulSoup 
 import sqlite3
 from telegram import *
-from telegram import ParseMode
+#from telegram import ParseMode
 
 API_KEY = "1886396394:AAFp1NJDpxpFbiPOgfhWKVtLP_DEVue-HDc"
 bot = telebot.TeleBot(API_KEY)
@@ -56,7 +56,7 @@ def info(message):
 	file.write(response.content)
 	PHOTO = open('sample_image.png', 'rb')
 	bot.delete_message(message.chat.id, msg.message_id)
-	bot.send_photo(chat_id, PHOTO, caption = f"<a href='{ link }' >Click here to watch</a>", parse_mode=ParseMode.HTML)
+	bot.send_photo(chat_id, PHOTO, caption= link )#caption = f"<a href='{ link }' >Click here to watch</a>", parse_mode=ParseMode.HTML)
 	file.close()
 	PHOTO.close()
 #	bot.send_message(chat_id,link )
