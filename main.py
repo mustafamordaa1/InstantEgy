@@ -4,7 +4,7 @@ from telebot import types
 from bs4 import BeautifulSoup 
 import sqlite3
 from telegram import *
-from telegram.ext import * 
+from telegram import ParseMode
 
 API_KEY = "1886396394:AAFp1NJDpxpFbiPOgfhWKVtLP_DEVue-HDc"
 bot = telebot.TeleBot(API_KEY)
