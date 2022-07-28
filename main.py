@@ -3,7 +3,8 @@ import requests
 from telebot import types
 from bs4 import BeautifulSoup 
 import sqlite3
-
+from telegram import *
+from telegram.ext import * 
 
 API_KEY = "1886396394:AAFp1NJDpxpFbiPOgfhWKVtLP_DEVue-HDc"
 bot = telebot.TeleBot(API_KEY)
@@ -27,7 +28,7 @@ def info(message):
 		bot.send_message(message.chat.id,"Your input is wrong")
 		return p
 		
-	bot.send_message(message.chat.id, f"You choosed { serie } season { season } episode { ep } \n PLEASE WAIT ... ")
+	msg = bot.send_message(message.chat.id,text = f"You choosed { serie } season { season } episode { ep } \n PLEASE WAIT ..." , parse_mode=ParseMode.HTML)
 	c.execute("SELECT * FROM series WHERE name=? AND id=?",(serie,chat_id))
 	check = c.fetchone()
 	if check == None :
@@ -42,20 +43,23 @@ def info(message):
 		markup = types.ReplyKeyboardMarkup(row_width=1)
 		itembtn = types.KeyboardButton('/help')
 		markup.add(itembtn)
-		bot.send_message(chat_id,f"There is no result { URL } ", reply_markup=markup)
+		bot.send_message(chat_id,"There is no result", reply_markup=markup)
 		return 'INPUT ERROR'
 		
 	link="https://ello.egybest.bid"+ div['src']
-	photo = soup.find('img')
+	photo = soup.find('div', {"class":"movie_img"})
+	photo = photo.find('img')
 	photo_URL = photo['src']
 	response = requests.get(photo_URL)
+#	print(photo_URL)
 	file = open("sample_image.png", "wb")
 	file.write(response.content)
 	PHOTO = open('sample_image.png', 'rb')
-	bot.send_photo(chat_id, PHOTO)
+	bot.delete_message(message.chat.id, msg.message_id)
+	bot.send_photo(chat_id, PHOTO, caption = f"<a href='{ link }' >Click here to watch</a>", parse_mode=ParseMode.HTML)
 	file.close()
 	PHOTO.close()
-	bot.send_message(chat_id,link )
+#	bot.send_message(chat_id,link )
 	conn.commit()
 	conn.close()
 
